@@ -1,5 +1,6 @@
 import pytest
 import salt.modules.test as testmod
+
 import saltext.zookeeper.modules.zookeeper_mod as zookeeper_module
 import saltext.zookeeper.states.zookeeper_mod as zookeeper_state
 
