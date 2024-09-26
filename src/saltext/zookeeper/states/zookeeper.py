@@ -154,9 +154,7 @@ def present(
         if cur_value == value and _check_acls(cur_acls, chk_acls):
             ret["result"] = True
             ret["comment"] = (
-                "Znode {} is already set to the correct value with the correct acls".format(
-                    name
-                )
+                f"Znode {name} is already set to the correct value with the correct acls"
             )
             return ret
         elif __opts__["test"] is True:
@@ -201,9 +199,7 @@ def present(
         ret["changes"]["new"]["value"] = value
         return ret
 
-    __salt__["zookeeper.create"](
-        name, value, acls, ephemeral, sequence, makepath, **connkwargs
-    )
+    __salt__["zookeeper.create"](name, value, acls, ephemeral, sequence, makepath, **connkwargs)
 
     value_result, acl_result = True, True
     changes = {"old": {}}

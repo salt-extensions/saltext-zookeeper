@@ -20,7 +20,8 @@ try:
     import kazoo.recipe.barrier
     import kazoo.recipe.lock
     import kazoo.recipe.party
-    from kazoo.exceptions import CancelledError, NoNodeError
+    from kazoo.exceptions import CancelledError
+    from kazoo.exceptions import NoNodeError
     from kazoo.retry import ForceRetryError
 
     # TODO: use the kazoo one, waiting for pull req:
@@ -71,9 +72,7 @@ try:
 
             # If there are leases available, acquire one
             if len(children) < self.max_leases:
-                self.client.create(
-                    self.create_path, self.data, ephemeral=self.ephemeral_lease
-                )
+                self.client.create(self.create_path, self.data, ephemeral=self.ephemeral_lease)
 
             # Check if our acquisition was successful or not. Update our state.
             if self.client.exists(self.create_path):
@@ -111,9 +110,7 @@ def _get_zk_conn(profile=None, **connection_args):
         """
         look in connection_args first, then default to config file
         """
-        return connection_args.get(key) or __salt__["config.get"](
-            ":".join([prefix, key]), default
-        )
+        return connection_args.get(key) or __salt__["config.get"](":".join([prefix, key]), default)
 
     hosts = get("hosts", "127.0.0.1:2181")
     scheme = get("scheme", None)
@@ -133,17 +130,13 @@ def _get_zk_conn(profile=None, **connection_args):
 
     if default_acl is not None:
         if isinstance(default_acl, list):
-            default_acl = [
-                __salt__["zookeeper.make_digest_acl"](**acl) for acl in default_acl
-            ]
+            default_acl = [__salt__["zookeeper.make_digest_acl"](**acl) for acl in default_acl]
         else:
             default_acl = [__salt__["zookeeper.make_digest_acl"](**default_acl)]
 
     __context__.setdefault("zkconnection", {}).setdefault(
         profile or hosts,
-        kazoo.client.KazooClient(
-            hosts=hosts, default_acl=default_acl, auth_data=auth_data
-        ),
+        kazoo.client.KazooClient(hosts=hosts, default_acl=default_acl, auth_data=auth_data),
     )
 
     if not __context__["zkconnection"][profile or hosts].connected:

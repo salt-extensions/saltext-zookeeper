@@ -2,10 +2,12 @@
     :codeauthor: Jayesh Kariya <jayeshk@saltstack.com>
 """
 
+from unittest.mock import MagicMock
+from unittest.mock import patch
+
 import pytest
 
-import salt.states.zk_concurrency as zk_concurrency
-from tests.support.mock import MagicMock, patch
+import saltext.zookeeper.states.zk_concurrency as zk_concurrency
 
 
 @pytest.fixture
@@ -59,9 +61,7 @@ def test_min_party():
 
     with patch.dict(zk_concurrency.__opts__, {"test": False}):
         mock = MagicMock(return_value=["1", "2", "3"])
-        with patch.dict(
-            zk_concurrency.__salt__, {"zk_concurrency.party_members": mock}
-        ):
+        with patch.dict(zk_concurrency.__salt__, {"zk_concurrency.party_members": mock}):
             ret.update({"comment": "Currently 3 nodes, which is >= 2", "result": True})
             assert zk_concurrency.min_party("salt", "dude", 2) == ret
             ret.update(

@@ -96,9 +96,7 @@ def _get_zk_conn(profile=None, **connection_args):
         """
         look in connection_args first, then default to config file
         """
-        return connection_args.get(key) or __salt__["config.get"](
-            ":".join([prefix, key]), default
-        )
+        return connection_args.get(key) or __salt__["config.get"](":".join([prefix, key]), default)
 
     hosts = get("hosts", "127.0.0.1:2181")
     scheme = get("scheme", None)
@@ -124,9 +122,7 @@ def _get_zk_conn(profile=None, **connection_args):
 
     __context__.setdefault("zkconnection", {}).setdefault(
         profile or hosts,
-        kazoo.client.KazooClient(
-            hosts=hosts, default_acl=default_acl, auth_data=auth_data
-        ),
+        kazoo.client.KazooClient(hosts=hosts, default_acl=default_acl, auth_data=auth_data),
     )
 
     if not __context__["zkconnection"][profile or hosts].connected:

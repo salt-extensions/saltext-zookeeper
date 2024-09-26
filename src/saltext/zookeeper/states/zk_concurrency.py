@@ -194,20 +194,14 @@ def min_party(
         name, zk_hosts, min_nodes, blocking=blocking, **conn_kwargs
     )
     if not isinstance(nodes, list):
-        raise Exception(
-            "Error from zk_concurrency.party_members, return was not a list: {}".format(
-                nodes
-            )
-        )
+        raise Exception(f"Error from zk_concurrency.party_members, return was not a list: {nodes}")
 
     num_nodes = len(nodes)
 
     if num_nodes >= min_nodes or blocking:
         ret["result"] = None if __opts__["test"] else True
         if not blocking:
-            ret["comment"] = "Currently {} nodes, which is >= {}".format(
-                num_nodes, min_nodes
-            )
+            ret["comment"] = f"Currently {num_nodes} nodes, which is >= {min_nodes}"
         else:
             ret["comment"] = (
                 "Blocked until {} nodes were available. Unblocked after {} nodes became"
@@ -215,8 +209,6 @@ def min_party(
             )
     else:
         ret["result"] = False
-        ret["comment"] = "Currently {} nodes, which is < {}".format(
-            num_nodes, min_nodes
-        )
+        ret["comment"] = f"Currently {num_nodes} nodes, which is < {min_nodes}"
 
     return ret
