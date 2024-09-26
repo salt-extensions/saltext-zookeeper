@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 import pytest
 
-import saltext.zookeeper.states.zk_concurrency as zk_concurrency
+from saltext.zookeeper.states import zk_concurrency
 
 
 @pytest.fixture

@@ -194,7 +194,9 @@ def min_party(
         name, zk_hosts, min_nodes, blocking=blocking, **conn_kwargs
     )
     if not isinstance(nodes, list):
-        raise Exception(f"Error from zk_concurrency.party_members, return was not a list: {nodes}")
+        ret["result"] = False
+        ret["comment"] = f"Error from zk_concurrency.party_members, return was not a list: {nodes}"
+        return ret
 
     num_nodes = len(nodes)
 

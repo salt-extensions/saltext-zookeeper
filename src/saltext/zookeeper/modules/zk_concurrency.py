@@ -46,7 +46,7 @@ try:
                 try:
                     for child in self.client.get_children(self.path):
                         try:
-                            data, stat = self.client.get(self.path + "/" + child)
+                            data, _ = self.client.get(self.path + "/" + child)
                             if identifier == data.decode("utf-8"):
                                 self.create_path = self.path + "/" + child
                                 self.is_acquired = True
@@ -150,7 +150,7 @@ def lock_holders(
     zk_hosts=None,
     identifier=None,
     max_concurrency=1,
-    timeout=None,
+    timeout=None,  # pylint: disable=unused-argument
     ephemeral_lease=False,
     profile=None,
     scheme=None,
@@ -160,6 +160,12 @@ def lock_holders(
 ):
     """
     Return an un-ordered list of lock holders
+
+    CLI Example:
+
+    .. code-block:: bash
+
+        salt '*' zk_concurrency.lock_holders some/path
 
     path
         The path in zookeeper where the lock is
@@ -220,6 +226,12 @@ def lock(
 ):
     """
     Get lock (with optional timeout)
+
+    CLI Example:
+
+    .. code-block:: bash
+
+        salt '*' zk_concurrency.lock some/path
 
     path
         The path in zookeeper where the lock is
@@ -296,6 +308,12 @@ def unlock(
     """
     Remove lease from semaphore
 
+    CLI Example:
+
+    .. code-block:: bash
+
+        salt '*' zk_concurrency.unlock some/path
+
     path
         The path in zookeeper where the lock is
 
@@ -362,6 +380,12 @@ def party_members(
     """
     Get the List of identifiers in a particular party, optionally waiting for the
     specified minimum number of nodes (min_nodes) to appear
+
+    CLI Example:
+
+    .. code-block:: bash
+
+        salt '*' zk_concurrency.party_members some/path
 
     path
         The path in zookeeper where the lock is

@@ -7,15 +7,12 @@ import logging
 import pytest
 from saltfactories.utils import random_string
 
-pytest.importorskip("kazoo")
 pytest.importorskip("docker")
 
 log = logging.getLogger(__name__)
 
 pytestmark = [
-    pytest.mark.slow_test,
-    pytest.mark.skip_if_binaries_missing("dockerd"),
-    pytest.mark.slow_test,
+    pytest.mark.skip_if_binaries_missing("docker", "dockerd", check_all=False),
 ]
 
 
@@ -60,7 +57,7 @@ def minion_config_overrides(zookeeper_port):
 def zookeeper_container(salt_factories):
     container = salt_factories.get_container(
         random_string("zookeeper-"),
-        "ghcr.io/saltstack/salt-ci-containers/zookeeper",
+        "docker.io/library/zookeeper",
         container_run_kwargs={
             "ports": {
                 "2181/tcp": None,
