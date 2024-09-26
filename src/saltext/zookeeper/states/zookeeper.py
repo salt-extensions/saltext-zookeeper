@@ -1,30 +1,42 @@
 """
-Zookeeper State
+Manage Zookeeper znodes and ACLs statefully.
 
-:depends:  kazoo
-:configuration: See :py:mod:`salt.modules.zookeeper` for setup instructions.
+.. important::
+    This module requires the general :ref:`Zookeeper setup <zookeeper-setup>`.
 
-ACLS
-~~~~
+ACLs
+----
 
-For more information about acls, please checkout the kazoo documentation.
+For more information about ACLs, please checkout the kazoo documentation.
 
-http://kazoo.readthedocs.io/en/latest/api/security.html#kazoo.security.make_digest_acl
+https://kazoo.readthedocs.io/en/latest/api/security.html#kazoo.security.make_digest_acl
 
+.. _acl-dicts:
+
+ACL dictionaries
+~~~~~~~~~~~~~~~~
 The following options can be included in the acl dictionary:
 
-    :param username: Username to use for the ACL.
-    :param password: A plain-text password to hash.
-    :param write: Write permission.
-    :type write: bool
-    :param create: Create permission.
-    :type create: bool
-    :param delete: Delete permission.
-    :type delete: bool
-    :param admin: Admin permission.
-    :type admin: bool
-    :param all: All permissions.
-    :type all: bool
+username
+    Username to use for the ACL.
+
+password
+    A plain-text password to hash.
+
+write [bool]
+    Write permission.
+
+create [bool]
+    Create permission.
+
+delete [bool]
+    Delete permission.
+
+admin [bool]
+    Admin permission.
+
+all [bool]
+    All permissions.
 """
 
 __virtualname__ = "zookeeper"

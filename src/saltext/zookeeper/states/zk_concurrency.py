@@ -2,9 +2,8 @@
 Control concurrency of steps within state execution using zookeeper
 ===================================================================
 
-:depends: kazoo
-:configuration: See :py:mod:`salt.modules.zookeeper` for setup instructions.
-
+.. important::
+    This module requires the general :ref:`Zookeeper setup <zookeeper-setup>`.
 
 This module allows you to "wrap" a state's execution with concurrency control.
 This is useful to protect against all hosts executing highstate simultaneously
@@ -15,6 +14,11 @@ the same batch command (and thereby having 2x the number of nodes deploying at o
 This module will bock while acquiring a slot, meaning that however the command gets
 called it will coordinate with zookeeper to ensure that no more than max_concurrency
 steps are executing with a single path.
+
+Example
+-------
+This example would allow the file state to change, but would limit the
+concurrency of the trafficserver service restart to 4.
 
 .. code-block:: yaml
 
@@ -40,9 +44,6 @@ steps are executing with a single path.
         - name: /trafficserver
         - require:
             - service: trafficserver
-
-This example would allow the file state to change, but would limit the
-concurrency of the trafficserver service restart to 4.
 """
 
 # TODO: use depends decorator to make these per function deps, instead of all or nothing

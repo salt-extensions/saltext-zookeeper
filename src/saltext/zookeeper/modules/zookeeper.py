@@ -1,73 +1,12 @@
 """
-Zookeeper Module
-~~~~~~~~~~~~~~~~
-:maintainer:    SaltStack
-:maturity:      new
-:platform:      all
-:depends:       kazoo
+Interface with a Zookeeper service.
 
-.. versionadded:: 2018.3.0
-
-Configuration
-=============
-
-:configuration: This module is not usable until the following are specified
-    either in a pillar or in the minion's config file:
-
-    .. code-block:: yaml
-
-        zookeeper:
-          hosts: zoo1,zoo2,zoo3
-          default_acl:
-            - username: daniel
-              password: test
-              read: true
-              write: true
-              create: true
-              delete: true
-              admin: true
-          username: daniel
-          password: test
-
-    If configuration for multiple zookeeper environments is required, they can
-    be set up as different configuration profiles. For example:
-
-    .. code-block:: yaml
-
-        zookeeper:
-          prod:
-            hosts: zoo1,zoo2,zoo3
-            default_acl:
-              - username: daniel
-                password: test
-                read: true
-                write: true
-                create: true
-                delete: true
-                admin: true
-            username: daniel
-            password: test
-          dev:
-            hosts:
-              - dev1
-              - dev2
-              - dev3
-            default_acl:
-              - username: daniel
-                password: test
-                read: true
-                write: true
-                create: true
-                delete: true
-                admin: true
-            username: daniel
-            password: test
+.. important::
+    This module requires the general :ref:`Zookeeper setup <zookeeper-setup>`.
 """
 
-# Import Salt libraries
 import salt.utils.stringutils
 
-# Import python libraries
 try:
     import kazoo.client
     import kazoo.security
