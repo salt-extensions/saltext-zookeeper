@@ -1,5 +1,5 @@
-``saltext-zookeeper``: Integrate Salt with Zookeeper
-====================================================
+``saltext-zookeeper``: Integrate Salt with Apache Zookeeper
+===========================================================
 
 Salt Extension for interacting with Apache Zookeeper
 
