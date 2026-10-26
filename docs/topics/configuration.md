@@ -1,8 +1,12 @@
 (zookeeper-setup)=
+
 # Configuration
-This Salt extension requires configuration, either in the minion's config file or via the Pillar.
+
+This Salt extension requires configuration, either in the minion's
+config file or via the Pillar.
 
 ## Basic
+
 ```yaml
 zookeeper:
   hosts: zoo1,zoo2,zoo3
@@ -19,8 +23,9 @@ zookeeper:
 ```
 
 ## Multiple environments
-If configuration for multiple zookeeper environments is required, they can
-be set up as different configuration profiles. For example:
+
+If configuration for multiple zookeeper environments is required, they
+can be set up as different configuration profiles. For example:
 
 ```yaml
 zookeeper:
